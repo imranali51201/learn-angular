@@ -1,0 +1,17 @@
+<div class="h-full">
+    <div class="flex justify-between items-center mb-5">
+        <h4 nz-typography>Todos</h4>
+        <button nz-button (click)="addTodo.open()">Create</button>
+    </div>
+    <nz-table nzBordered (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)"
+        nzShowSizeChanger nzFrontPagination="false" [nzPageIndex]="page" [nzTotal]="todoService.pagination?.total||0"
+        [nzPageSize]="limit" [nzLoading]="todoService.loading" #basicTable [nzData]="todoService.todos">
+        <tbody>
+            <tr *ngFor="let data of todoService.todos">
+                <td [nzChecked]="data.completed" [nzLabel]="data.todo"></td>
+                <td>{{ data.todo }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <add-todo (onAdd)="onAddTodo()" />
+</div>

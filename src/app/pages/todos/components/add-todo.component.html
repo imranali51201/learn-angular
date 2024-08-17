@@ -1,0 +1,15 @@
+<nz-modal [(nzVisible)]="visible" [nzOkDisabled]="todoForm.invalid" [nzOkLoading]="isLoading" nzTitle="Add Todo" nzOkText="Create" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="todoForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Please input your todo!">
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Todo</nz-form-label>
+                    <nz-input-group nzPrefixIcon="mail">
+                        <input type="text" nz-input formControlName="todo" placeholder="Todo" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+</nz-modal>

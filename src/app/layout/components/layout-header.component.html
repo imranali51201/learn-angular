@@ -1,0 +1,24 @@
+<nz-header class="bg-white flex justify-between items-center">
+    <img width="80" height="100"
+        src="https://static.vecteezy.com/system/resources/previews/012/986/755/non_2x/abstract-circle-logo-icon-free-png.png" />
+
+    <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item nzMatchRouter>
+            <a routerLink="/">Home</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+            <a routerLink="/todos">Todos</a>
+        </li>
+    </ul>
+
+    <nz-avatar [nzSize]="40" nz-dropdown nzIcon="user" nzPlacement="bottomRight" [nzDropdownMenu]="menu"></nz-avatar>
+    <nz-dropdown-menu ariaPlaceholder="bottomRight" #menu="nzDropdownMenu">
+        <ul nz-menu class="w-40">
+            <li nz-menu-item (click)="logout()">
+                <span nz-icon nzType="logout" nzTheme="outline"></span>
+                Logout
+            </li>
+        </ul>
+    </nz-dropdown-menu>
+
+</nz-header>
