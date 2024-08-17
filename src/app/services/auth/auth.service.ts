@@ -38,9 +38,11 @@ export class AuthService {
     try {
       const { data } = await this.apiService.api.post<LoginResponse>("/auth/login", {
         username: props.email,
-        password: props.password
+        password: props.password,
+        expiresInMins: 1
       });
       this.cookies.set("token", data.token);
+      this.cookies.set("refreshToken", data.refreshToken);
       await this.fetchUser();
       this.isAuthenticated = !!data.token;
       this.router.navigateByUrl("/");

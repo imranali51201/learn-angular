@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import Axios, { AxiosInstance } from 'axios';
 import { API_BASE_URL } from '../../config';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../auth/auth.service';
+import { isTokenExpired } from '../../helpers/helpers.service';
+import { LoginResponse } from '../../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +18,15 @@ export class ApiService {
   })
 
   constructor(
-    private cookies: CookieService
+    private cookies: CookieService,
   ) {
     this.instance.interceptors.request.use(
-      req => {
-        let token = this.cookies.get("token")
-        if (token) {
-          req.headers.Authorization = `Bearer ${token}`
+      async (req) => {
+        if (req.url !== "/auth/refresh") {
+          let token = await this.getToken()
+          if (token) {
+            req.headers.Authorization = `Bearer ${token}`
+          }
         }
         return req
       },
@@ -34,6 +39,19 @@ export class ApiService {
         return Promise.reject(err)
       }
     )
+  }
+
+  async getToken() {
+    let _token = this.cookies.get("token")
+    if (_token && isTokenExpired(_token)) {
+      const { data } = await this.instance.post<LoginResponse>("/auth/refresh", {
+        refreshToken: this.cookies.get("refreshToken")
+      })
+      this.cookies.set("token", data.token);
+      this.cookies.set("refreshToken", data.refreshToken);
+      _token = data.token
+    }
+    return _token;
   }
 
   get api() {
