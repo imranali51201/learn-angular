@@ -18,8 +18,8 @@ export class LoginPage {
   isLoading = false;
 
   loginForm = new FormGroup({
-    email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    email: new FormControl('emilys', { nonNullable: true, validators: [Validators.required] }),
+    password: new FormControl('emilyspass', { nonNullable: true, validators: [Validators.required] }),
     remember: new FormControl(true, { nonNullable: true }),
   });
 
