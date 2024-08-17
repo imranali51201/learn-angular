@@ -4,9 +4,9 @@
         <form nz-form [formGroup]="todoForm" (ngSubmit)="submitForm()">
             <nz-form-item>
                 <nz-form-control nzErrorTip="Please input your todo!">
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Todo</nz-form-label>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="todo">Todo</nz-form-label>
                     <nz-input-group nzPrefixIcon="mail">
-                        <input type="text" nz-input formControlName="todo" placeholder="Todo" />
+                        <input type="text" nz-input formControlName="todo" id="todo" placeholder="Todo" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
